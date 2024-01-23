@@ -1,0 +1,8 @@
+{% extends "layout.html" %} {% block content %}
+<h1>hola desde alumnos</h1>
+
+<p>Escuela {{titulo}}</p>
+
+{% for alumno in nombres %}
+<h3 class="text-md text-primary-500">{{alumno}}</h3>
+{% endfor %} {% endblock %}
