@@ -1,8 +1,28 @@
-{% extends "layout.html" %} {% block content %}
-<h1>hola desde alumnos</h1>
+{% extends "layout2.html" %} {% block content %} {% import
+'_macros.html' as macros %}
 
-<p>Escuela {{titulo}}</p>
+<form action="POST" novalidate>
+	<div class="row control-group">
+		<div class="form-group form-floating">
+			{{macros.camposNuevos(form.nombre, class="form-control")}}
+		</div>
+		<div class="form-group">
+			{{macros.camposNuevos(form.a_paterno, class="form-control")}}
+		</div>
+		<div class="form-group">
+			{{macros.camposNuevos(form.a_materno, class="form-control")}}
+		</div>
+		<div class="form-group">
+			{{macros.camposNuevos(form.edad, class="form-control")}}
+		</div>
+		<div class="form-group">
+			{{macros.camposNuevos(form.email, class="form-control")}}
+		</div>
+	</div>
 
-{% for alumno in nombres %}
-<h3 class="text-md text-primary-500">{{alumno}}</h3>
-{% endfor %} {% endblock %}
+	<!-- {{macros.datos('nombre','John Doe')}}
+	{{macros.datos('sueldo','00.00', 'number')}}
+	{{macros.camposNuevos(form.a_paterno, class="form-group")}} -->
+</form>
+
+{{form.nombre}} {% endblock %}
