@@ -14,14 +14,31 @@ def alumnos():
 	# nombres = ["Mario", "Juan", "Pedro", "Dario"]
 	# return render_template('alumnos.html', titulo=titulo, nombres=nombres)
 	usuario_form = UserForm(request.form)
-	if request.method == 'POST':
-		pass
 
-	return render_template('alumnos.html', form=usuario_form)
+	nombre = None
+	p_apellido = None
+	m_apellido = None
+	edad = None
+	email = None
+	
+	
+	if request.method == 'POST' and usuario_form.validate():
+		nombre = usuario_form.nombre.data
+		m_apellido = usuario_form.a_materno.data
+		p_apellido = usuario_form.a_paterno.data
+		edad = usuario_form.edad.data
+		email = usuario_form.email.data
+	
+		print(f"Nombre: {nombre} {p_apellido} {m_apellido} Edad: {edad} Email: {email}")
+
+
+
+	return render_template('alumnos.html', form=usuario_form, nombre=nombre, p_apellido=p_apellido , m_apellido=m_apellido, edad=edad, email=email if email else "Email")
+												
 
 @app.route('/maestros')
 def maestros():
-	return render_template('maestros.html')
+	return render_template('maestros.html', img = "a")
 
 
 

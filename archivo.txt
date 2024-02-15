@@ -1,0 +1,6 @@
+
+Hola, soy un texto añadido al archivo
+Hola, soy un texto guardado desde Python
+Hola, soy un texto guardado desde Python
+Hola, soy un texto guardado desde Python
+Hola, soy un texto guardado desde Python
