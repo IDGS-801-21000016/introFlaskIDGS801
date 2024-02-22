@@ -1,11 +1,30 @@
 from flask import Flask, render_template, request
 from forms import UserForm
+from flask import flash 
+from flask import g
+from flask_wtf.csrf import CSRFProtect
 
 app = Flask(__name__)
+
+app.secret_key = 'DFGHJKLI67890'
+
+
+@app.before_request
+def before_request():
+	g.nombre = "Jonarro"
+	print("Antes de la peticion")
+
+@app.after_request
+def after_request(response):
+	print("Despues de la peticion")
+	response.headers['powered-by'] = 'Jonarro'
+	return response
+	
 
 @app.route('/')
 def index():
 	return render_template('index.html')
+
 
 
 @app.route('/alumnos', methods=['GET', 'POST'])
@@ -14,7 +33,6 @@ def alumnos():
 	# nombres = ["Mario", "Juan", "Pedro", "Dario"]
 	# return render_template('alumnos.html', titulo=titulo, nombres=nombres)
 	usuario_form = UserForm(request.form)
-
 	nombre = None
 	p_apellido = None
 	m_apellido = None
@@ -31,15 +49,14 @@ def alumnos():
 	
 		print(f"Nombre: {nombre} {p_apellido} {m_apellido} Edad: {edad} Email: {email}")
 
-
-
+		msj_flash = f"Bienvenido {g.nombre}"
+		flash(msj_flash)
 	return render_template('alumnos.html', form=usuario_form, nombre=nombre, p_apellido=p_apellido , m_apellido=m_apellido, edad=edad, email=email if email else "Email")
 												
 
 @app.route('/maestros')
 def maestros():
 	return render_template('maestros.html', img = "a")
-
 
 
 @app.route('/hola')
@@ -100,6 +117,11 @@ def resultado():
         n1 = int(request.form['n1'])
         n2 = int(request.form['n2'])
         return f"La multiplicacion de {n1} * {n2} = {n1*n2}"
+		
+
+@app.errorhandler(404)
+def error(error):
+		return render_template('404.html', error = error), 404
    
 
     
